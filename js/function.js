@@ -1,47 +1,46 @@
-let checkStringLength = function (string, length) {
+const checkStringLength = function (string, length) {
   if (string.length === length) {
     return true;
   }
   return false;
 };
-checkStringLength("cat", 5);
+checkStringLength('cat', 5);
 
-let isStringPolindrom = function (string) {
-  const lowerCaseString = string.toLowerCase().replaceAll(" ", "");
+const isStringPolindrom = function (string) {
+  const lowerCaseString = string.toLowerCase().replaceAll(' ', '');
   const reverse = lowerCaseString
-    .split("")
+    .split('')
     .reverse()
-    .join("")
-    .replaceAll(" ", "");
+    .join('')
+    .replaceAll(' ', '');
   if (lowerCaseString === reverse) {
     return true;
   }
   return false;
 };
 
-isStringPolindrom("Лёша на полке клопа нашёл");
+isStringPolindrom('Лёша на полке клопа нашёл');
 
-let findNumbers = function (string) {
-  let number = "";
-  for (let i in string) {
-    if (isNaN(parseInt(string[i]))) {
-    } else {
+const findNumbers = function (string) {
+  let number = '';
+  for (const i in string) {
+    if (!isNaN(parseInt(string[i], 10))) {
       number += string[i];
     }
   }
-  if (number == "") {
+  if (number === '') {
     return NaN;
   }
   return number;
 };
-findNumbers("2023 год");
+findNumbers('2023 год');
 
-let fillString = function (string, minLength, additionalString) {
+const fillString = function (string, minLength, additionalString) {
   if (string.length >= minLength) {
     return string;
   } else if (string.length + additionalString.length < minLength) {
     let difference = minLength - string.length;
-    let additionalStringMore = "";
+    let additionalStringMore = '';
     while (difference > 0) {
       difference--;
       additionalStringMore += additionalString;
@@ -57,4 +56,4 @@ let fillString = function (string, minLength, additionalString) {
   return additionalString + string;
 };
 
-fillString("1", 2, "0");
+fillString('1', 2, '0');
