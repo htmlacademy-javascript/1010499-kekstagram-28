@@ -8,20 +8,20 @@ const urlList = [
   23, 24, 25,
 ];
 
-const description = ["cool", "bad", "not bad", "not cool", "fine"];
+const description = ['cool', 'bad', 'not bad', 'not cool', 'fine'];
 
-const avatarList = [
-  1, 2, 3, 4, 5, 6
-];
-const massageList = [
-  'Всё отлично!', 'В целом всё неплохо. Но не всё.'
-]
-const nameList = [
-  'Артем', 'Дима', 'Петя', 'Ваня', 'Санек', 'Миша',
-];
+// const avatarList = [
+//   1, 2, 3, 4, 5, 6
+// ];
+// const massageList = [
+//   'Всё отлично!', 'В целом всё неплохо. Но не всё.'
+// ]
+// const nameList = [
+//   'Артем', 'Дима', 'Петя', 'Ваня', 'Санек', 'Миша',
+// ];
 
 const photosCount = 25;
-const commentsCount = 2;
+// const commentsCount = 2;
 
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -79,7 +79,8 @@ const photoDescription = () => {
   };
 };
 // const commentList = Array.from({ length: commentsCount }, photoComments());
-const photoList = Array.from({ length: photosCount }, photoDescription);
+// const photoList
+Array.from({ length: photosCount }, photoDescription);
 
-console.log(photoList);
+// console.log(photoList);
 // console.log(commentList);
