@@ -1,85 +1,58 @@
-const idList = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 25,
+import {getRandomInteger, getRandomArrayElements, getUniqueNumber} from './util.js';
+
+const PHOTO_OBJECTS_COUNT = 25;
+const LIKES_MIN_COUNT = 15;
+const LIKES_MAX_COUNT = 200;
+const AVATAR_MIN_COUNT = 1;
+const AVATAR_MAX_COUNT = 6;
+const ID_MIN_COUNT = 1;
+const ID_MAX_COUNT = 25;
+const URL_MIN_COUNT = 1;
+const URL_MAX_COUNT = 25;
+const COMMENTS_ID_MIN_COUNT = 1;
+const COMMENTS_ID_MAX_COUNT = 1000;
+
+const NAMES = [
+  'Мария', 'Глеб', 'Ярослав', 'Жанна', 'Павел',
 ];
 
-const urlList = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 25,
+const PHOTO_DESCRIPTIONS = [
+  'Когда радости нет предела', 'Улыбаюсь новому дню', 'Досадно, но ладно', 'Все люди, как люди, а я суперзвезда!',
+  'Релаксирую', 'Законно быть таким фотогеничным?',
 ];
 
-const description = ['cool', 'bad', 'not bad', 'not cool', 'fine'];
+const COMMENTS = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+];
 
-// const avatarList = [
-//   1, 2, 3, 4, 5, 6
-// ];
-// const massageList = [
-//   'Всё отлично!', 'В целом всё неплохо. Но не всё.'
-// ]
-// const nameList = [
-//   'Артем', 'Дима', 'Петя', 'Ваня', 'Санек', 'Миша',
-// ];
+const generatedComments = () =>
+  Array.from({ length: getRandomInteger (1, 2) }, () =>
+    getRandomArrayElements(COMMENTS)
+  ).join('.');
 
-const photosCount = 25;
-// const commentsCount = 2;
+const generatedPhotoId = getUniqueNumber(ID_MIN_COUNT, ID_MAX_COUNT);
+const generatedCommentId = getUniqueNumber(COMMENTS_ID_MIN_COUNT, COMMENTS_ID_MAX_COUNT);
+const generatedPhotoUrl = getUniqueNumber(URL_MIN_COUNT, URL_MAX_COUNT);
 
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
+// Функция создания фотообъекта
 
-// const getRandomUniqInteger = (a, b) => {
-//   const lower = Math.ceil(Math.min(a, b));
-//   let upper = Math.floor(Math.max(a, b));
-//   while(upper--){
-//     const result = Math.random() * 25 + 1;
-//     return Math.floor(result);
-//   }
-// };
+const createPhotoObject = () => ({
+  photoId: generatedPhotoId(),
+  url: `photos/${generatedPhotoUrl()}.jpg`,
+  description: getRandomArrayElements(PHOTO_DESCRIPTIONS),
+  likes: getRandomInteger(LIKES_MIN_COUNT, LIKES_MAX_COUNT),
+  comments: {
+    commentsId: generatedCommentId(),
+    avatar: `img/avatar-${getRandomInteger(AVATAR_MIN_COUNT, AVATAR_MAX_COUNT)}.svg`,
+    message: generatedComments(),
+    name: getRandomArrayElements(NAMES),
+  }
+});
 
-// const getRandomArr = (a,b) => {
-//   const nums = new Set();
-//   while(nums.size !== b) {
-//     nums.add(Math.floor(Math.random() * b) + a);
-//   }
-//   let random = [...nums].slice(0);
-//   console.log(random)
-//   return random;
+//Функция создания массива из фотообъектов
 
-// };
+const createPhotoObjects = () => Array.from({length:PHOTO_OBJECTS_COUNT}, createPhotoObject);
 
-
-const photoDescription = () => {
-  // const randomIdListIndex = getRandomInteger(0, idList.length - 1);
-  // const randomUrlIndex = getRandomInteger(0, url.length - 1);
-  const randomDescriptionIndex = getRandomInteger(0, description.length - 1);
-  return {
-    id: idList.shift(),
-    url: `photos/${urlList.shift()}.jpg`,
-    description: description[randomDescriptionIndex],
-    likes: getRandomInteger(15, 200),
-    comments :{
-      id: 135,
-      avatar: 'img/avatar-6.svg',
-      message: 'В целом всё неплохо. Но не всё.',
-      name: 'Артём',
-    },
-    // const photoComments = () => {
-    //   const randomNameIndex = getRandomInteger(0, nameList.length - 1);
-    //   const randomMessageIndex = getRandomInteger(0, massageList.length - 1);
-    //   return {
-    //     id: 135,
-    //     avatar: `img/avatar-${avatarList.shift()}.svg`,
-    //     message: massageList[randomMessageIndex],
-    //     name: avatarList[randomNameIndex],
-    //   },
-    // }
-  };
-};
-// const commentList = Array.from({ length: commentsCount }, photoComments());
-Array.from({ length: photosCount }, photoDescription);
-
-// console.log(photoList);
-// console.log(commentList);
+export {createPhotoObjects};
